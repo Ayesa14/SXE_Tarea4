@@ -42,3 +42,33 @@ apt install -y php php-mysql libapache2-mod-php
 //Reiniciar el servicio de apache
 systemctl restart apache2
 ```
+
+## 3. Instalar Wordpress
+### 3.1. Instalar dependencias
+```bash
+apt install ghostscript \
+            php-bcmath \
+            php-curl \
+            php-imagick \
+            php-intl \
+            php-json \
+            php-mbstring \
+            php-mysql \
+            php-xml \
+            php-zip
+```
+### 3.2. Instalar Wordpress
+```bash
+//Creamos un directorio
+mkdir -p /srv/www
+//Cambiamos la propiedad al usuario www-data
+chown www-data: /srv/www
+//Descargamos Wordpress y la extraemos en /srv/www
+curl https://wordpress.org/latest.tar.gz | tar -xz -C /srv/www
+```
+>[!WARNING]
+> Para utilizar el comando curl es necesario instalarlo
+> ```bash
+> apt install curl
+>```
+
