@@ -12,3 +12,33 @@ docker pull ubuntu:22.04
 docker run -d -p 7000:80 --name ub ubuntu:22.04 tail -f /dev/null
 ```
 
+## 2. Instalar LAMP en dicho contenedor
+### 2.1. Acceder al contenedor
+```bash
+docker exec -it ub sh
+```
+
+### 2.2. Actualizar lista de paquetes
+```bash
+apt update
+``` 
+### 2.3. Instalar Apache
+```bash
+apt install -y apache2 apache2-utils
+```
+### 2.4. Instalar MariaDB
+```bash
+apt install -y mariadb-server mariadb-client
+//aseguramos la instalacion
+sudo mysql_secure_installation
+```
+>[!WARNING]
+> ERROR 2002(HY000) la base de datos no está iniciada
+> Solución: servive apache2 start y service mariadb start
+
+### 2.5. Instalar PHP
+```bash
+apt install -y php php-mysql libapache2-mod-php
+//Reiniciar el servicio de apache
+systemctl restart apache2
+```
