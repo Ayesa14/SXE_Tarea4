@@ -34,7 +34,12 @@ sudo mysql_secure_installation
 ```
 >[!WARNING]
 > ERROR 2002(HY000) la base de datos no está iniciada
-> Solución: servive apache2 start y service mariadb start
+> 
+> Solución: 
+>```bash
+> servive apache2 start
+> service mariadb start
+>```
 
 ### 2.5. Instalar PHP
 ```bash
