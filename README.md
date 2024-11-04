@@ -76,4 +76,41 @@ curl https://wordpress.org/latest.tar.gz | tar -xz -C /srv/www
 > ```bash
 > apt install curl
 >```
+### 3.3. Configurar Apache
+```bash
+//Crea una página
+nano etc/apache2/sites-available/wordpress.conf
+```
+>[!WARNING]
+> Para utilizar el comando nano es necesario instalarlo
+> ```bash
+> apt install nano
+>```
 
+Que contenga las siguientes líneas: 
+```bash
+<VirtualHost *:80>
+    DocumentRoot /srv/www/wordpress
+    <Directory /srv/www/wordpress>
+        Options FollowSymLinks
+        AllowOverride Limit Options FileInfo
+        DirectoryIndex index.php
+        Require all granted
+    </Directory>
+    <Directory /srv/www/wordpress/wp-content>
+        Options FollowSymLinks
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+### 3.4. Habilitar el sitio
+```bash
+// Habilitar el sitio de WP
+a2ensite wordpress
+// Habilitar el módulo de reescritura
+a2enmod rewrite
+// Deshabilitar el sitio predeterminado
+a2dissite 000-default
+// Recargar Apache para aplicar los cambios
+service apache2 reload
+```
