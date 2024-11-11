@@ -114,3 +114,42 @@ a2dissite 000-default
 // Recargar Apache para aplicar los cambios
 service apache2 reload
 ```
+
+### 3.5 Comprobar acceso a WordPress
+```bash
+http://<ip>:<puerto>/wp-admin/setup-config.php
+```
+
+### 3.6 Configurar
+```bash
+mysql -u root
+
+# Crea una nueva base de datos
+create database <nombre_BD>;
+
+# Crea un nuevo usuario y aplica una contraseña
+create user <nombre_usuario>@localhost identified by '<contraseña>';
+
+# Otorga todos los privilegios al usuario especificado
+grant all privileges on <nombre_BD>.* TO <nombre_usuario>@localhost;
+
+# Actualiza los privilegios
+fush privileges;
+
+exit;
+
+# Copia el archivo de configuración
+cp /srv/www/wordpress/wp-config-sample.php /srv/www/wordpress/wp-config.php
+
+# Reemplaza el nombre de la base de datos en el archivo de configuración
+sed -i 's/database_name_here/<nombre_BD>/' /srv/www/wordpress/wp-config.php
+
+# Reemplaza el nombre del usuario en el archivo de configuración
+sudo -u www-data sed -i 's/username_here/<nombre_usuario>/' /srv/www/wordpress/wp-config.php
+
+# Reemplaza la contraseña del usuario en el archivo de configuración
+sed -i 's/password_here/<contraseña>/' /srv/www/wordpress/wp-config.php
+```
+
+
+
